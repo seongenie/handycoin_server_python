@@ -11,7 +11,7 @@ class CoinService:
     def getTicker(self , coins):
         pass
     def getPosscoin(self):
-        result = self.db.getPossCoin()
+        result = self.db.getposscoin()
         print result
 
     # for coin in coins :

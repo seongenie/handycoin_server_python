@@ -6,7 +6,7 @@ class DBRepository:
     def __init__(self):
         self.conn = DBConnect.getInstance()
 
-    def getPossCoin(self):
+    def getposscoin(self):
         rows = self.conn.executeQuery("""SELECT *
                                 FROM EXCHANGE_COIN
                                 ORDER BY EXCHANGE
