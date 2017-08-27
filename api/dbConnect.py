@@ -7,7 +7,6 @@ class DBConnect:
         dbuser = "admin"
         dbpass = "escape"
         database = "coin"
-        id ="tinyaaa"
 
         self.conn = pymysql.connect(dbhost, dbuser, dbpass, database, charset='utf8')
 
@@ -40,5 +39,12 @@ class DBConnect:
                          """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))
 
         self.conn.commit()
+
+    def selectQuery(self , query ):
+        cur = self.conn.cursor()
+        cur.execute(query)
+        rows = cur.fetchall()
+        return rows
+
     def closeConnection(self):
         self.conn.close()
