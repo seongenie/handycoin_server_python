@@ -1,4 +1,4 @@
-from dbConnect import DBConnect
+from api.dbConnect import DBConnect
 
 class DBRepository:
     INSTANCE = None

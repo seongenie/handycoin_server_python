@@ -1,4 +1,4 @@
-from api.dbRepository import DBRepository
+from api.daemonRepository import DBRepository
 
 class commonProcess:
     def __init__(self):
