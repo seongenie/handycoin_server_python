@@ -1,19 +1,17 @@
-import api.dbConnect
+from api.dbRepository import DBRepository
 
 class commonProcess:
     def __init__(self):
         pass
-    def dbConnect(self, DB):
-        self.DB = DB
 
     def updatePrice(self, exchange, coin, first_price, last_price):
-        self.DB.updatePrice(exchange, coin, first_price, last_price)
+        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price)
 
     def setJsonObj(self, jObj):
         self.jObj = jObj
 
     def updateOrderBook(self, exchange, coin, bid, ask):
-        self.DB.updateOrderBook(exchange, coin, bid, ask)
+        DBRepository.getInstance().updateOrderBook(exchange, coin, bid, ask)
 
     def odBookParse(self):
         pass
@@ -40,7 +38,32 @@ class bithumb(commonProcess):
             ask['qnty'][i] = self.jObj['data']['asks'][i]['quantity']
             bid['tick'][i] = self.jObj['data']['bids'][i]['price']
             bid['qnty'][i] = self.jObj['data']['bids'][i]['quantity']
-        self.DB.updateOrderBook(self.exchange, coin, bid, ask)
+
+        self.updateOrderBook(self.exchange, coin, bid, ask)
+
+        # def updateOrderBook(self, exchange, coin, bid, ask):
+        #     for i in range(0,5) :
+        #         curs.execute("""UPDATE ORDER_BOOK
+        #                         SET TICK = %s
+        #                           , QNTY = %s
+        #                         WHERE IDX = %s AND BID_ASK = 'BID' AND EXCHANGE = %s AND COIN = %s
+        #                      """, (bid['tick'][i] , bid['qnty'][i], i+1, exchange, coin))
+        #
+        #     for i in range(0,5) :
+        #         curs.execute("""UPDATE ORDER_BOOK
+        #                         SET TICK = %s
+        #                           , QNTY = %s
+        #                         WHERE IDX = %s AND BID_ASK = 'ASK' AND EXCHANGE = %s AND COIN = %s
+        #                      """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))
+
+
+
+
+
+
+
+
+
         return 'success'
 
 class coinone(commonProcess):

@@ -1,15 +1,12 @@
-from api.dbConnect import DBConnect
+from api.dbRepository import DBRepository
 
 class commonProcess:
     def __init__(self):
         pass
 
+    # def updatePrice(self, exchange, coin, first_price, last_price):
     def updatePrice(self, exchange, coin, first_price, last_price):
-        DBConnect.getInstance().executeQuery(
-            """UPDATE COIN_PRICE 
-               SET OPEN_PRICE= %s, LAST_PRICE= %s , UPDATE_TIME=CURTIME() 
-               WHERE EXCHANGE= %s  and COIN= %s
-            """, (first_price, last_price, exchange, coin));
+        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price)
 
     def setJsonObj(self, jObj):
         self.jObj = jObj

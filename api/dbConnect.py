@@ -1,6 +1,6 @@
 import pymysql
-import decimal
 
+#Mysql과 연동하는 Singleton 객체
 class DBConnect:
     INSTANCE = None
 
@@ -17,7 +17,7 @@ class DBConnect:
         return pymysql.connect(self.dbhost, self.dbuser, self.dbpass, self.database, charset='utf8')
 
     @classmethod
-    def getInstance(cls):
+    def getInstance(cls): # type : () -> DBConnect
         if cls.INSTANCE is None:
             cls.INSTANCE = DBConnect()
         return cls.INSTANCE
@@ -38,18 +38,3 @@ class DBConnect:
         curs.close()
         conn.close()
         return result
-    #
-    # def updateOrderBook(self, exchange, coin, bid, ask):
-    #     for i in range(0,5) :
-    #         curs.execute("""UPDATE ORDER_BOOK
-    #                         SET TICK = %s
-    #                           , QNTY = %s
-    #                         WHERE IDX = %s AND BID_ASK = 'BID' AND EXCHANGE = %s AND COIN = %s
-    #                      """, (bid['tick'][i] , bid['qnty'][i], i+1, exchange, coin))
-    #
-    #     for i in range(0,5) :
-    #         curs.execute("""UPDATE ORDER_BOOK
-    #                         SET TICK = %s
-    #                           , QNTY = %s
-    #                         WHERE IDX = %s AND BID_ASK = 'ASK' AND EXCHANGE = %s AND COIN = %s
-    #                      """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))

@@ -1,17 +1,12 @@
 # !/usr/bin/env python
 
-import coin_daemon
+import daemon
 import sys
 import logging
-import urllib
-import signal
 import urllib2
 import json
 import time
-import odBook_Parser
-import api.dbConnect
-
-import hmac,hashlib
+import odBookParser
 
 from time import sleep
 from datetime import datetime
@@ -52,18 +47,17 @@ class restFulApi:
 
     def returnCommon(self):
         if (self.exch == "bithumb"):
-            return odBook_Parser.bithumb()
+            return odBookParser.bithumb()
         if (self.exch == "coinone"):
-            return odBook_Parser.coinone()
+            return odBookParser.coinone()
         if (self.exch == "poloniex"):
-            return odBook_Parser.poloniex()
+            return odBookParser.poloniex()
 
 
-with coin_daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
+with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
     argu = sys.argv[1]
     restFul = restFulApi(argu)
     common = restFul.returnCommon()
-    common.dbConnect(dbConnect.DBConnect())
     while True:
         for coin in coin_list[argu]:
             jObj = restFul.request(coin)
