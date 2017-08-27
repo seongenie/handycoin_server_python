@@ -1,6 +1,6 @@
 # !/usr/bin/env python
 
-import daemon
+import coin_daemon
 import sys
 import logging
 import urllib
@@ -9,7 +9,7 @@ import urllib2
 import json
 import time
 import odBook_Parser
-import dbConnect
+import api.dbConnect
 
 import hmac,hashlib
 
@@ -59,7 +59,7 @@ class restFulApi:
             return odBook_Parser.poloniex()
 
 
-with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
+with coin_daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
     argu = sys.argv[1]
     restFul = restFulApi(argu)
     common = restFul.returnCommon()

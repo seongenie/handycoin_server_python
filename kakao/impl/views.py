@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import dbconnect
+from api.dbConnect import DBConnect
 
 @csrf_exempt
 def message(request):
@@ -19,7 +19,7 @@ def keyboard(request):
 
 @csrf_exempt
 def ticker(request):
-    conn = dbconnect.getConnection()
+    conn = DBConnect.getInstance().getConnection()
 
     return JsonResponse({'coin': '500'})
 
