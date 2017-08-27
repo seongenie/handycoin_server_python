@@ -1,18 +1,29 @@
-
-
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-from api.dbConnect import DBConnect
+import coinService
 
-def posscoin(request):
-    #create db
-    db = DBConnect()
-    rows = db.selectQuery("""
-                    SELECT *
-                    FROM EXCHANGE_COIN
-                    """)
-    print type(rows)
-    return JsonResponse({'result' : 'success'});
+@csrf_exempt
+def getTicker(request) :
+    if request.method == "POST":
+        orderBook = coinService.getTicker("~~~~~~")
+        # 로직 구현
+        #
+        #
+        # return JsonResponse({          })
+    else:
+        return HttpResponse("ERROR")
 
 
 
+@csrf_exempt
+def getOrderBook(request) :
+    if request.method == "GET":
+        orderBook = coinService.getOrderBook(request.GET['exchange'], request.GET['coin'])
+        # 로직 구현
+        #
+        #
+        # return JsonResponse({          })
+    else:
+        return HttpResponse("ERROR")
 

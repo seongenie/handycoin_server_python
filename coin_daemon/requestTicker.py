@@ -3,15 +3,11 @@
 import daemon
 import sys
 import logging
-import urllib
-import signal
 import urllib2
 import json
 import time
 import jsonParser
-import dbConnect
 
-import hmac,hashlib
 
 from time import sleep
 from datetime import datetime
@@ -52,29 +48,14 @@ class restFulApi:
         if (self.exch == "poloniex"):
             return jsonParser.poloniex()
 
-argu = sys.argv[1]
-restFul = restFulApi(argu)
-common = restFul.returnCommon()
-common.dbConnect(dbConnect.DBConnect())
-
-        # while True:
-jObj = restFul.request()
-common.setJsonObj(jObj)
-message = common.jsonParse()
-time = str(datetime.now())
-logger.info(time + ' : ' + message)
-# sleep(5)
-#
-# with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
-#     argu = sys.argv[1]
-#     restFul = restFulApi(argu)
-#     common = restFul.returnCommon()
-#     common.dbConnect(dbConnect.DBConnect())
-#
-#     while True:
-#         jObj = restFul.request()
-#         common.setJsonObj(jObj)
-#         message = common.jsonParse()
-#         time = str(datetime.now())
-#         logger.info(time + ' : ' + message)
-#         sleep(5)
+with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
+    argu = sys.argv[1]
+    restFul = restFulApi(argu)
+    common = restFul.returnCommon()
+    while True:
+        jObj = restFul.request()
+        common.setJsonObj(jObj)
+        message = common.jsonParse()
+        time = str(datetime.now())
+        logger.info(time + ' : ' + message)
+        sleep(5)

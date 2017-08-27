@@ -2,49 +2,39 @@ import pymysql
 import decimal
 
 class DBConnect:
-    def __init__(self):
-        dbhost = "localhost"
-        dbuser = "admin"
-        dbpass = "escape"
-        database = "coin"
+    INSTANCE = None
 
-        self.conn = pymysql.connect(dbhost, dbuser, dbpass, database, charset='utf8')
+    def __init__(self):
+        if self.INSTANCE is not None:
+            raise ValueError("A instance already exists!")
+
+        self.dbhost = "localhost"
+        self.dbuser = "admin"
+        self.dbpass = "escape"
+        self.database = "coin"
 
     def getConnection(self):
-        return self.conn 
+        return pymysql.connect(self.dbhost, self.dbuser, self.dbpass, self.database, charset='utf8')
 
-    def updatePrice(self, exchange, coin, firstPrice, lastPrice):
-        curs = self.conn.cursor()
-        curs.execute("""UPDATE COIN_PRICE 
-                        SET OPEN_PRICE= %s, LAST_PRICE= %s , UPDATE_TIME=CURTIME() 
-                        WHERE EXCHANGE= %s  and COIN= %s 
-                     """, (firstPrice, lastPrice, exchange, coin))
-        self.conn.commit()
+    @classmethod
+    def getInstance(cls): # type : () -> DBConnect
+        if cls.INSTANCE is None:
+            cls.INSTANCE = DBConnect()
+        return cls.INSTANCE
 
-    def updateOrderBook(self, exchange, coin, bid, ask):
-        curs = self.conn.cursor()
+    def executeQuery(self, query, args):
+        conn = self.getConnection()
+        curs = conn.cursor()
+        curs.execute(query, args)
+        conn.commit()
+        curs.close()
+        conn.close()
 
-        for i in range(0,5) :
-            curs.execute("""UPDATE ORDER_BOOK
-                            SET TICK = %s
-                              , QNTY = %s
-                            WHERE IDX = %s AND BID_ASK = 'BID' AND EXCHANGE = %s AND COIN = %s
-                         """, (bid['tick'][i] , bid['qnty'][i], i+1, exchange, coin))
-
-        for i in range(0,5) :
-            curs.execute("""UPDATE ORDER_BOOK
-                            SET TICK = %s
-                              , QNTY = %s
-                            WHERE IDX = %s AND BID_ASK = 'ASK' AND EXCHANGE = %s AND COIN = %s
-                         """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))
-
-        self.conn.commit()
-
-    def selectQuery(self , query ):
-        cur = self.conn.cursor()
-        cur.execute(query)
-        rows = cur.fetchall()
-        return rows
-
-    def closeConnection(self):
-        self.conn.close()
+    def selectQuery(self, query, args):
+        conn = self.getConnection()
+        curs = conn.cursor()
+        curs.execute(query, args)
+        result = curs.fetchall()
+        curs.close()
+        conn.close()
+        return result

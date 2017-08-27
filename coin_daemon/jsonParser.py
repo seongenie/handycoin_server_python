@@ -1,13 +1,12 @@
-import dbConnect
+from api.daemonRepository import DBRepository
 
 class commonProcess:
     def __init__(self):
         pass
-    def dbConnect(self, DB):
-        self.DB = DB
 
+    # def updatePrice(self, exchange, coin, first_price, last_price):
     def updatePrice(self, exchange, coin, first_price, last_price):
-        self.DB.updatePrice(exchange, coin, first_price, last_price)
+        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price)
 
     def setJsonObj(self, jObj):
         self.jObj = jObj
