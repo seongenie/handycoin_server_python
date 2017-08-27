@@ -6,6 +6,13 @@ class DBRepository:
     def __init__(self):
         self.conn = DBConnect.getInstance()
 
+    def getPossCoin(self):
+        rows = self.conn.executeQuery("""SELECT *
+                                FROM EXCHANGE_COIN
+                                ORDER BY EXCHANGE
+                                """ ,())
+        return rows
+
     @classmethod
     def getInstance(cls): # type : () -> DBRepository
         if cls.INSTANCE is None:
@@ -34,9 +41,4 @@ class DBRepository:
                               , QNTY = %s
                             WHERE IDX = %s AND BID_ASK = 'ASK' AND EXCHANGE = %s AND COIN = %s
                          """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))
-    def getPossCoin(self):
-        return self.conn.executeQuery("""
-                                SELECT *
-                                FROM EXCHANGE_COIN
-                                ORDER BY EXCHANGE
-                                """ ,())
+
