@@ -1,6 +1,5 @@
 import pymysql
 
-#Mysql과 연동하는 Singleton 객체
 class DBConnect:
     INSTANCE = None
 
