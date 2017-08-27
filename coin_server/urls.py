@@ -20,7 +20,7 @@ from kakao.impl.views import keyboard, message
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^coin/' , include('response.urls'))
+    url(r'^coin/' , include('response.urls')),
     url(r'^keyboard/', keyboard),
     url(r'^message/', message),
     url(r'^message/', message),

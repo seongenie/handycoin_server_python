@@ -1,10 +1,11 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import coinService
+from coinService import CoinService
 
+coinService = CoinService()
 @csrf_exempt
-def getTicker(request) :
+def ticker(request) :
     if request.method == "POST":
         orderBook = coinService.getTicker("~~~~~~")
         # 로직 구현
@@ -24,6 +25,13 @@ def getOrderBook(request) :
         #
         #
         # return JsonResponse({          })
+    else:
+        return HttpResponse("ERROR")
+
+def posscoin(request):
+    if request.method == "GET":
+        coinService.getPosscoin()
+
     else:
         return HttpResponse("ERROR")
 
