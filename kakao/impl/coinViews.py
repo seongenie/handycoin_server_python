@@ -1,0 +1,4 @@
+def getTicker(self) :
+    pass
+
+
