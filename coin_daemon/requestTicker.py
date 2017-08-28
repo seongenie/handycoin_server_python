@@ -6,7 +6,7 @@ import logging
 import urllib2
 import json
 import time
-import jsonParser
+import tickerService
 
 
 from time import sleep
@@ -42,11 +42,11 @@ class restFulApi:
 
     def returnCommon(self):
         if (self.exch == "bithumb"):
-            return jsonParser.bithumb()
+            return tickerService.bithumb()
         if (self.exch == "coinone"):
-            return jsonParser.coinone()
+            return tickerService.coinone()
         if (self.exch == "poloniex"):
-            return jsonParser.poloniex()
+            return tickerService.poloniex()
 
 with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
     argu = sys.argv[1]

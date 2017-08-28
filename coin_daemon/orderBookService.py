@@ -13,7 +13,7 @@ class commonProcess:
     def updateOrderBook(self, exchange, coin, bid, ask):
         DBRepository.getInstance().updateOrderBook(exchange, coin, bid, ask)
 
-    def odBookParse(self):
+    def orderBookParse(self):
         pass
 
 class bithumb(commonProcess):

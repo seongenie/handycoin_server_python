@@ -6,7 +6,7 @@ import logging
 import urllib2
 import json
 import time
-import odBookParser
+import orderBookService
 
 from time import sleep
 from datetime import datetime
@@ -47,11 +47,11 @@ class restFulApi:
 
     def returnCommon(self):
         if (self.exch == "bithumb"):
-            return odBookParser.bithumb()
+            return orderBookService.bithumb()
         if (self.exch == "coinone"):
-            return odBookParser.coinone()
+            return orderBookService.coinone()
         if (self.exch == "poloniex"):
-            return odBookParser.poloniex()
+            return orderBookService.poloniex()
 
 
 with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
