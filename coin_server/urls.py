@@ -21,5 +21,4 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^keyboard/', keyboard),
     url(r'^message/', message),
-    url(r'^message/', message),
 ]
