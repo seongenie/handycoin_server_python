@@ -13,7 +13,7 @@ class CoinService:
         pass
     def getPosscoin(self):
         # 조회가능 코인 조회
-        # tuple 형태로 응답
+
         result = self.db.getPossCoin()
         # json 형태로 변경
         json = {}
