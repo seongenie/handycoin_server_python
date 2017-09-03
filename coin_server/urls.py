@@ -23,5 +23,4 @@ urlpatterns = [
     url(r'^coin/' , include('response.urls')),
     url(r'^keyboard/', keyboard),
     url(r'^message/', message),
-    url(r'^message/', message),
 ]
