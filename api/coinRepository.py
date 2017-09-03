@@ -4,7 +4,7 @@ class DBRepository:
     INSTANCE = None
 
     def __init__(self):
-        pass
+        self.localSource = DBConnect()
 
     @classmethod
     def getInstance(cls): # type : () -> DBRepository
@@ -13,7 +13,7 @@ class DBRepository:
         return cls.INSTANCE
 
     def selectTicker(self):
-        result = DBConnect.getInstance().executeQuery(
+        result = self.localSource.getInstance().executeQuery(
             """
             SELECT  FROM ~~~ 
             """, ());
@@ -24,4 +24,13 @@ class DBRepository:
             """
             SELECT  FROM ~~~ 
             """, ());
+        return result
+
+    def getPossCoin(self):
+        result = self.localSource.selectQuery(
+            """
+            SELECT * FROM EXCHANGE_COIN ORDER BY EXCHANGE
+            """ ,()
+        )
+        print str(result) + str(type(result))
         return result

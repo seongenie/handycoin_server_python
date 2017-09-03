@@ -31,8 +31,8 @@ def getOrderBook(request) :
 
 def posscoin(request):
     if request.method == "GET":
-        coinService.getPosscoin()
-
+        json = coinService.getPosscoin()
+        return JsonResponse(json)
     else:
         return HttpResponse("ERROR")
 
