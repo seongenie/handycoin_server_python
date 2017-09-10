@@ -8,20 +8,25 @@ coinService = CoinService()
 @csrf_exempt
 def ticker(request) :
     if request.method == "POST":
-        orderBook = coinService.getTicker("~~~~~~")
+         json_ticker = coinService.getTicker(request.body)
         # 로직 구현
         #
         #
         # return JsonResponse({          })
+         return JsonResponse(json_ticker)
+    elif request.method == "GET" :
+        json_ticker = coinService.getTicker(request.body)
+        return JsonResponse(json_ticker)
     else:
         return HttpResponse("ERROR")
 
 
 
 @csrf_exempt
-def getOrderBook(request) :
+def orderbook(request) :
     if request.method == "GET":
         orderBook = coinService.getOrderBook(request.GET['exchange'], request.GET['coin'])
+        return JsonResponse(orderBook)
         # 로직 구현
         #
         #
@@ -31,8 +36,8 @@ def getOrderBook(request) :
 
 def posscoin(request):
     if request.method == "GET":
-        json = coinService.getPosscoin()
-        return JsonResponse(json)
+        json_poss_coin = coinService.getPosscoin()
+        return JsonResponse(json_poss_coin)
     else:
         return HttpResponse("ERROR")
 
