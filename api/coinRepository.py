@@ -24,7 +24,7 @@ class DBRepository:
                            , TRIM(coin)
                            , open_price
                            , last_price
-                     FROM coin_price 
+                     FROM COIN_PRICE 
                      WHERE EXCHANGE = %s 
                      AND COIN IN ( """
             for i in args[exchange_name][1:]:
