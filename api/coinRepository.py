@@ -39,6 +39,7 @@ class DBRepository:
         # response.raise_for_status()
         # rate_data = response.json()
         # result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
+        i = 0;
         for coin_tick in result:
             result_dict['data'].setdefault(coin_tick[0] , {})
             # result_dict['data'][coin_tick[0]].setdefault(coin_tick[1] , {})
@@ -46,7 +47,7 @@ class DBRepository:
             coinPrice['coin_name'] = coin_tick[1];
             coinPrice['first_price'] = coin_tick[2];
             coinPrice['last_price'] = coin_tick[3];
-            result_dict['data'].append(coinPrice);
+            result_dict['data'][i] = coinPrice;
             # result_dict['data'][coin_tick[0]][coin_tick[1]]['first_price'] = coin_tick[2]
             # result_dict['data'][coin_tick[0]][coin_tick[1]]['last_price'] = coin_tick[3]
         return result_dict
