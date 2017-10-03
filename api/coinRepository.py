@@ -38,7 +38,7 @@ class DBRepository:
         # response = requests.get(DBRepository.rate_url)
         # response.raise_for_status()
         # rate_data = response.json()
-        # result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
+        result_dict['USDKRW'] = self.selectCurrency("USD", "KRW")
         for coin_tick in result:
             result_dict['data'].setdefault(coin_tick[0] , {})
             result_dict['data'][coin_tick[0]].setdefault(coin_tick[1] , {})
@@ -46,6 +46,25 @@ class DBRepository:
             result_dict['data'][coin_tick[0]][coin_tick[1]]['last_price'] = coin_tick[3]
 
         return result_dict
+
+    def selectCurrency(self, source, destination):
+        """
+        :param source: ex) USD
+        :param destination: ex) KRW
+        :return: 1140.24
+        """
+        result = self.localSource.selectQuery(
+            """
+            SELECT  price
+            FROM    CURRENCY
+            WHERE   source = %s
+            AND     destination = %s
+            """, (source, destination))
+        ret = 0
+        for price in result:
+            ret = price[0]
+        return ret
+
 
     def selectOrderBook(self, exchange, coin):
         result = self.localSource.selectQuery(
@@ -56,7 +75,7 @@ class DBRepository:
             FROM    ORDER_BOOK
             WHERE   EXCHANGE = %s
             AND     COIN = %s
-            """, (exchange, coin));
+            """, (exchange, coin))
         result_dict ={'data': {}}
         #requets usd rate
         response = requests.get(DBRepository.rate_url)
