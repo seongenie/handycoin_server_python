@@ -34,17 +34,21 @@ class DBRepository:
             print((exchange_name,) + tuple(args[exchange_name]))
             result += self.localSource.selectQuery( query, (exchange_name,) + tuple(args[exchange_name]));
         result_dict ={'data' :{}}
-        #request usd rate
-        response = requests.get(DBRepository.rate_url)
-        response.raise_for_status()
-        rate_data = response.json()
-        result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
+        # request usd rate
+        # response = requests.get(DBRepository.rate_url)
+        # response.raise_for_status()
+        # rate_data = response.json()
+        # result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
         for coin_tick in result:
             result_dict['data'].setdefault(coin_tick[0] , {})
-            result_dict['data'][coin_tick[0]].setdefault(coin_tick[1] , {})
-            result_dict['data'][coin_tick[0]][coin_tick[1]]['first_price'] = coin_tick[2]
-            result_dict['data'][coin_tick[0]][coin_tick[1]]['last_price'] = coin_tick[3]
-
+            # result_dict['data'][coin_tick[0]].setdefault(coin_tick[1] , {})
+            coinPrice = {};
+            coinPrice['coin_name'] = coin_tick[1];
+            coinPrice['first_price'] = coin_tick[2];
+            coinPrice['last_price'] = coin_tick[3];
+            result_dict['data'].append(coinPrice);
+            # result_dict['data'][coin_tick[0]][coin_tick[1]]['first_price'] = coin_tick[2]
+            # result_dict['data'][coin_tick[0]][coin_tick[1]]['last_price'] = coin_tick[3]
         return result_dict
 
     def selectOrderBook(self, exchange, coin):
