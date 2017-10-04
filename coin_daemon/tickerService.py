@@ -44,7 +44,7 @@ class coinone(commonProcess):
 
 class poloniex(commonProcess):
     def __init__(self):
-        self.coins = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP']
+        self.coins = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP', 'BCH']
         self.exchange = 'poloniex'
 
     def jsonParse(self):
