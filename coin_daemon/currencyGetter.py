@@ -4,7 +4,7 @@ import urllib2
 import json
 
 import sys
-sys.path.append("/Users/seongjinlee/PycharmProjects/coin_server")
+sys.path.append("/home/ubuntu/git_repository/server")
 
 from api.daemonRepository import DBRepository
 
