@@ -35,3 +35,16 @@ class DBRepository:
                             WHERE IDX = %s AND BID_ASK = 'ASK' AND EXCHANGE = %s AND COIN = %s
                          """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))
 
+    def updatePrice(self, exchange, coin, first_price, last_price):
+        DBConnect.getInstance().executeQuery(
+            """UPDATE COIN_PRICE 
+               SET OPEN_PRICE= %s, LAST_PRICE= %s , UPDATE_TIME=CURTIME() 
+               WHERE EXCHANGE= %s  and COIN= %s
+            """, (first_price, last_price, exchange, coin))
+
+    def updateCurrency(self, source, destination, price):
+        DBConnect.getInstance().executeQuery(
+            """UPDATE CURRENCY
+               SET price= %s, update_time = CURTIME() 
+               WHERE source = %s  and destination = %s
+            """, (price, source, destination))
