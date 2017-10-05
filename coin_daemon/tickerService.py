@@ -5,8 +5,8 @@ class commonProcess:
         pass
 
     # def updatePrice(self, exchange, coin, first_price, last_price):
-    def updatePrice(self, exchange, coin, first_price, last_price):
-        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price)
+    def updatePrice(self, exchange, coin, first_price, last_price, max_price, min_price):
+        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price, max_price, min_price)
 
     def setJsonObj(self, jObj):
         self.jObj = jObj
@@ -60,7 +60,7 @@ class poloniex(commonProcess):
             change = 1 / (1 + change)
             last_price = self.jObj[ccoin]['last']
             first_price = change * float(last_price)
-            max_price = self.jObj[ccoin]['max_price']
-            min_price = self.jObj[ccoin]['min_price']
+            max_price = self.jObj[ccoin]['high24hr']
+            min_price = self.jObj[ccoin]['low24hr']
             self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
         return 'success'
