@@ -78,10 +78,10 @@ class DBRepository:
             """, (exchange, coin))
         result_dict ={'data': {}}
         #requets usd rate
-        response = requests.get(DBRepository.rate_url)
-        response.raise_for_status()
-        rate_data = response.json()
-        result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
+        # response = requests.get(DBRepository.rate_url)
+        # response.raise_for_status()
+        # rate_data = response.json()
+        # result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
         result_dict['data']['BID'] = {}
         result_dict['data']['ASK'] = {}
         for order_info in result :
