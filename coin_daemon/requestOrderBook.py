@@ -63,8 +63,7 @@ with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
             jObj = restFul.request(coin)
             common.setJsonObj(jObj)
             common.odBookParse()
-            sleep(1)
         message = "RECEIVE SUCCESS"
         time = str(datetime.now())
         logger.info(time + ' : ' + message)
-        sleep(1)
+        sleep(3)
