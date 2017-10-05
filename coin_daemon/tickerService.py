@@ -25,7 +25,9 @@ class bithumb(commonProcess):
         for coin in self.coins:
             first_price = self.jObj['data'][coin]['opening_price']
             last_price = self.jObj['data'][coin]['closing_price']
-            self.updatePrice(self.exchange, coin, first_price, last_price)
+            max_price = self.jObj['data'][coin]['max_price']
+            min_price = self.jObj['data'][coin]['min_price']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
         return 'success'
 
 class coinone(commonProcess):
@@ -39,7 +41,9 @@ class coinone(commonProcess):
         for coin in self.coins:
             first_price = self.jObj[coin.lower()]['first']
             last_price = self.jObj[coin.lower()]['last']
-            self.updatePrice(self.exchange, coin, first_price, last_price)
+            max_price = self.jObj[coin.lower()]['high']
+            min_price = self.jObj[coin.lower()]['low']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
         return 'success'
 
 class poloniex(commonProcess):
@@ -56,5 +60,7 @@ class poloniex(commonProcess):
             change = 1 / (1 + change)
             last_price = self.jObj[ccoin]['last']
             first_price = change * float(last_price)
-            self.updatePrice(self.exchange, coin, first_price, last_price)
+            max_price = self.jObj[ccoin]['max_price']
+            min_price = self.jObj[ccoin]['min_price']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
         return 'success'

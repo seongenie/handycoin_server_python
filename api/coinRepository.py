@@ -77,16 +77,32 @@ class DBRepository:
             AND     COIN = %s
             """, (exchange, coin))
         result_dict ={'data': {}}
-        #requets usd rate
-        # response = requests.get(DBRepository.rate_url)
-        # response.raise_for_status()
-        # rate_data = response.json()
-        # result_dict['USDKRW'] = rate_data['query']['results']['rate']['Rate']
         result_dict['data']['BID'] = {}
         result_dict['data']['ASK'] = {}
+
+
         for order_info in result :
             result_dict['data'][order_info[0]][order_info[1]] = order_info[2]
+
+        result = self.localSource.selectQuery(
+            """
+            SELECT  open_price
+                ,   last_price
+            FROM    COIN_PRICE
+            WHERE   EXCHANGE = %s
+            AND     COIN = %s """, exchange, coin)
+
+        for price in result :
+            result_dict['data']['last_price'] = price[0]
+            result_dict['data']['prev_price'] = price[1]
+
+        result_dict['data']['exchange'] = exchange
+        result_dict['data']['coin'] = coin
+        result_dict['data']['max_price'] = 0
+        result_dict['data']['min_price'] = 0
+
         return result_dict
+
 
     def getPossCoin(self):
         result = self.localSource.selectQuery(
