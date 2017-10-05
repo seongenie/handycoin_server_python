@@ -92,7 +92,7 @@ class DBRepository:
                 ,   min_price
             FROM    COIN_PRICE
             WHERE   EXCHANGE = %s
-            AND     COIN = %s """, exchange, coin)
+            AND     COIN = %s """, (exchange, coin))
 
         for price in result :
             result_dict['data']['last_price'] = price[0]
