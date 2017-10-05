@@ -88,6 +88,8 @@ class DBRepository:
             """
             SELECT  open_price
                 ,   last_price
+                ,   max_price
+                ,   min_price
             FROM    COIN_PRICE
             WHERE   EXCHANGE = %s
             AND     COIN = %s """, exchange, coin)
@@ -95,11 +97,11 @@ class DBRepository:
         for price in result :
             result_dict['data']['last_price'] = price[0]
             result_dict['data']['prev_price'] = price[1]
+            result_dict['data']['max_price'] = price[2]
+            result_dict['data']['min_price'] = price[3]
 
         result_dict['data']['exchange'] = exchange
         result_dict['data']['coin'] = coin
-        result_dict['data']['max_price'] = 0
-        result_dict['data']['min_price'] = 0
 
         return result_dict
 
