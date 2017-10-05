@@ -48,14 +48,14 @@ class restFulApi:
         if (self.exch == "poloniex"):
             return tickerService.poloniex()
 
-# with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
-argu = sys.argv[1]
-restFul = restFulApi(argu)
-common = restFul.returnCommon()
-    # while True:
-jObj = restFul.request()
-common.setJsonObj(jObj)
-message = common.jsonParse()
-time = str(datetime.now())
-logger.info(time + ' : ' + message)
-sleep(3)
+with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
+    argu = sys.argv[1]
+    restFul = restFulApi(argu)
+    common = restFul.returnCommon()
+    while True:
+        jObj = restFul.request()
+        common.setJsonObj(jObj)
+        message = common.jsonParse()
+        time = str(datetime.now())
+        logger.info(time + ' : ' + message)
+        sleep(3)
