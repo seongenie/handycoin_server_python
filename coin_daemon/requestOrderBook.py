@@ -66,4 +66,4 @@ with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
         message = "RECEIVE SUCCESS"
         time = str(datetime.now())
         logger.info(time + ' : ' + message)
-        sleep(3)
+        sleep(1)
