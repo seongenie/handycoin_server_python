@@ -68,7 +68,7 @@ class bithumb(commonProcess):
 
 class coinone(commonProcess):
     def __init__(self):
-        self.coins = ['BTC', 'ETH', 'ETC', 'XRP']
+        self.coins = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
         self.exchange = 'coinone'
 
     def odBookParse(self):

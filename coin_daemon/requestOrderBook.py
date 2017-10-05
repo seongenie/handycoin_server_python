@@ -29,8 +29,8 @@ exchange_url['coinone'] = 'https://api.coinone.co.kr/orderbook?currency='
 exchange_url['bithumb'] = 'https://api.bithumb.com/public/orderbook/'
 
 coin_list = {}
-coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP']
-coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP']
+coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH'];
+coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
 
 
 class restFulApi:
