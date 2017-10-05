@@ -4,7 +4,6 @@ class commonProcess:
     def __init__(self):
         pass
 
-    # def updatePrice(self, exchange, coin, first_price, last_price):
     def updatePrice(self, exchange, coin, first_price, last_price, max_price, min_price):
         DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price, max_price, min_price)
 
