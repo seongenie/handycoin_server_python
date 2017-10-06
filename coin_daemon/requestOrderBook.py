@@ -23,10 +23,9 @@ logger.addHandler(file_logger)
 logger.setLevel(logging.INFO)
 
 exchange_url = {}
-#exchange_url['poloniex'] = 'https://poloniex.com/public?command=returnTicker'
-
-exchange_url['coinone'] = 'https://api.coinone.co.kr/orderbook?currency='
-exchange_url['bithumb'] = 'https://api.bithumb.com/public/orderbook/'
+exchange_url['poloniex'] = 'https://poloniex.com/public?command=returnOrderBook&currencyPair=' #USDT_ZEC&depth=5'
+exchange_url['coinone'] = 'https://api.coinone.co.kr/orderbook?currency=' #BTC
+exchange_url['bithumb'] = 'https://api.bithumb.com/public/orderbook/' #BTC
 
 coin_list = {}
 coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH'];
@@ -43,14 +42,17 @@ class restFulApi:
         return self.jObj
 
     def request(self, coin):
-        return self.api_query(coin)
+        if self.exch == "poloniex" :
+            return self.api_query("USDT_" + coin + "&depth=5")
+        else :
+            return self.api_query(coin)
 
     def returnCommon(self):
-        if (self.exch == "bithumb"):
+        if self.exch == "bithumb" :
             return orderBookService.bithumb()
-        if (self.exch == "coinone"):
+        if self.exch == "coinone" :
             return orderBookService.coinone()
-        if (self.exch == "poloniex"):
+        if self.exch == "poloniex":
             return orderBookService.poloniex()
 
 
@@ -62,7 +64,7 @@ with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
         for coin in coin_list[argu]:
             jObj = restFul.request(coin)
             common.setJsonObj(jObj)
-            common.odBookParse()
+            common.odBookParse(coin)
         message = "RECEIVE SUCCESS"
         time = str(datetime.now())
         logger.info(time + ' : ' + message)
