@@ -88,7 +88,6 @@ class poloniex(commonProcess):
         bid = {}
         bid['tick'] = {}
         bid['qnty'] = {}
-        coin = self.jObj['currency']
         for i in range(0, 5):
             ask['tick'][i] = {}
             ask['qnty'][i] = {}
