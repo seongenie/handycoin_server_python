@@ -2,6 +2,7 @@
 
 import daemon
 import sys
+sys.path.append('../')
 import logging
 import urllib2
 import json
