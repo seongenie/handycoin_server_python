@@ -24,6 +24,7 @@ class bithumb(commonProcess):
         ask = {}
         ask['tick'] = {}
         ask['qnty'] = {}
+
         bid = {}
         bid['tick'] = {}
         bid['qnty'] = {}
@@ -41,29 +42,6 @@ class bithumb(commonProcess):
 
         self.updateOrderBook(self.exchange, coin, bid, ask)
 
-        # def updateOrderBook(self, exchange, coin, bid, ask):
-        #     for i in range(0,5) :
-        #         curs.execute("""UPDATE ORDER_BOOK
-        #                         SET TICK = %s
-        #                           , QNTY = %s
-        #                         WHERE IDX = %s AND BID_ASK = 'BID' AND EXCHANGE = %s AND COIN = %s
-        #                      """, (bid['tick'][i] , bid['qnty'][i], i+1, exchange, coin))
-        #
-        #     for i in range(0,5) :
-        #         curs.execute("""UPDATE ORDER_BOOK
-        #                         SET TICK = %s
-        #                           , QNTY = %s
-        #                         WHERE IDX = %s AND BID_ASK = 'ASK' AND EXCHANGE = %s AND COIN = %s
-        #                      """, (ask['tick'][i] , ask['qnty'][i], i+1, exchange, coin))
-
-
-
-
-
-
-
-
-
         return 'success'
 
 class coinone(commonProcess):
@@ -72,13 +50,32 @@ class coinone(commonProcess):
         self.exchange = 'coinone'
 
     def odBookParse(self):
-        ret_arr = {}
-        ret_arr['exchange'] = self.exchange
-        for coin in self.coins:
-            first_price = self.jObj[coin.lower()]['first']
-            last_price = self.jObj[coin.lower()]['last']
-            self.updatePrice(self.exchange, coin, first_price, last_price)
-        return 'success'
+
+
+        if self.jObj['errorCode'] == "0" :
+            ask = {}
+            ask['tick'] = {}
+            ask['qnty'] = {}
+
+            bid = {}
+            bid['tick'] = {}
+            bid['qnty'] = {}
+            coin = self.jObj['currency']
+            for i in range(0, 5) :
+                ask['tick'][i] = {}
+                ask['qnty'][i] = {}
+                bid['tick'][i] = {}
+                bid['qnty'][i] = {}
+
+                ask['tick'][i] = self.jObj['ask'][i]['price']
+                ask['qnty'][i] = self.jObj['ask'][i]['qty']
+                bid['tick'][i] = self.jObj['bid'][i]['price']
+                bid['qnty'][i] = self.jObj['bid'][i]['qty']
+            self.updateOrderBook(self.exchange, coin, bid, ask)
+
+            return 'success'
+        else :
+            return 'failed'
 
 class poloniex(commonProcess):
     def __init__(self):
