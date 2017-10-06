@@ -28,6 +28,7 @@ exchange_url['coinone'] = 'https://api.coinone.co.kr/orderbook?currency=' #BTC
 exchange_url['bithumb'] = 'https://api.bithumb.com/public/orderbook/' #BTC
 
 coin_list = {}
+coin_list['poloniex'] = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP', 'BCH']
 coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH'];
 coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
 
