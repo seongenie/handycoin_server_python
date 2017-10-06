@@ -2,6 +2,7 @@
 
 import daemon
 import sys
+sys.path.append("/home/ubuntu/git_repository/server")
 import logging
 import urllib2
 import json
