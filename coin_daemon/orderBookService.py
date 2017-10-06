@@ -13,14 +13,14 @@ class commonProcess:
     def updateOrderBook(self, exchange, coin, bid, ask):
         DBRepository.getInstance().updateOrderBook(exchange, coin, bid, ask)
 
-    def orderBookParse(self):
-        pass
+    def orderBookParse(self, coin):
+        self.coin = coin
 
 class bithumb(commonProcess):
     def __init__(self):
         self.exchange = 'bithumb'
 
-    def odBookParse(self):
+    def odBookParse(self, coin):
         ask = {}
         ask['tick'] = {}
         ask['qnty'] = {}
@@ -46,10 +46,9 @@ class bithumb(commonProcess):
 
 class coinone(commonProcess):
     def __init__(self):
-        self.coins = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
         self.exchange = 'coinone'
 
-    def odBookParse(self):
+    def odBookParse(self, coin):
 
 
         if self.jObj['errorCode'] == "0" :
@@ -79,17 +78,27 @@ class coinone(commonProcess):
 
 class poloniex(commonProcess):
     def __init__(self):
-        self.coins = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP']
         self.exchange = 'poloniex'
 
-    def odBookParse(self):
-        ret_arr = {}
-        ret_arr['exchange'] = self.exchange
-        for coin in self.coins:
-            ccoin = "USDT_" + coin
-            change = float(self.jObj[ccoin]['percentChange'])
-            change = 1 / (1 + change)
-            last_price = self.jObj[ccoin]['last']
-            first_price = change * float(last_price)
-            self.updatePrice(self.exchange, coin, first_price, last_price)
+    def odBookParse(self, coin):
+        ask = {}
+        ask['tick'] = {}
+        ask['qnty'] = {}
+
+        bid = {}
+        bid['tick'] = {}
+        bid['qnty'] = {}
+        coin = self.jObj['currency']
+        for i in range(0, 5):
+            ask['tick'][i] = {}
+            ask['qnty'][i] = {}
+            bid['tick'][i] = {}
+            bid['qnty'][i] = {}
+
+            ask['tick'][i] = self.jObj['asks'][i][0]
+            ask['qnty'][i] = self.jObj['asks'][i][1]
+            bid['tick'][i] = self.jObj['bids'][i][0]
+            bid['qnty'][i] = self.jObj['bids'][i][1]
+        self.updateOrderBook(self.exchange, coin, bid, ask)
+
         return 'success'
