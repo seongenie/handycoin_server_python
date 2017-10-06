@@ -95,8 +95,8 @@ class DBRepository:
             AND     COIN = %s """, (exchange, coin))
 
         for price in result :
-            result_dict['data']['last_price'] = price[0]
-            result_dict['data']['prev_price'] = price[1]
+            result_dict['data']['prev_price'] = price[0]
+            result_dict['data']['last_price'] = price[1]
             result_dict['data']['max_price'] = price[2]
             result_dict['data']['min_price'] = price[3]
 
