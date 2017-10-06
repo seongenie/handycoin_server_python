@@ -71,7 +71,7 @@ class coinone(commonProcess):
                 ask['qnty'][i] = self.jObj['ask'][i]['qty']
                 bid['tick'][i] = self.jObj['bid'][i]['price']
                 bid['qnty'][i] = self.jObj['bid'][i]['qty']
-            self.updateOrderBook(self.exchange, coin, bid, ask)
+            self.updateOrderBook(self.exchange, coin.upper(), bid, ask)
 
             return 'success'
         else :
