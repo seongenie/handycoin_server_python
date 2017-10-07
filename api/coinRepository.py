@@ -90,6 +90,7 @@ class DBRepository:
                 ,   last_price
                 ,   max_price
                 ,   min_price
+                ,   volume
             FROM    COIN_PRICE
             WHERE   EXCHANGE = %s
             AND     COIN = %s """, (exchange, coin))
@@ -99,6 +100,7 @@ class DBRepository:
             result_dict['data']['last_price'] = price[1]
             result_dict['data']['max_price'] = price[2]
             result_dict['data']['min_price'] = price[3]
+            result_dict['data']['volume'] = price[4]
 
         result_dict['data']['exchange'] = exchange
         result_dict['data']['coin'] = coin
