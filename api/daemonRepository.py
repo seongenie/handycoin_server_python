@@ -12,12 +12,12 @@ class DBRepository:
             cls.INSTANCE = DBRepository()
         return cls.INSTANCE
 
-    def updatePrice(self, exchange, coin, first_price, last_price, max_price, min_price):
+    def updatePrice(self, exchange, coin, first_price, last_price, max_price, min_price, volume):
         DBConnect.getInstance().executeQuery(
             """UPDATE COIN_PRICE 
-               SET OPEN_PRICE= %s, LAST_PRICE= %s , MAX_PRICE= %s, MIN_PRICE= %s, UPDATE_TIME=CURTIME() 
+               SET OPEN_PRICE= %s, LAST_PRICE= %s , MAX_PRICE= %s, MIN_PRICE= %s, VOLUME= %s, UPDATE_TIME=CURTIME() 
                WHERE EXCHANGE= %s  and COIN= %s
-            """, (first_price, last_price, max_price, min_price, exchange, coin))
+            """, (first_price, last_price, max_price, min_price, volume, exchange, coin))
 
     def updateOrderBook(self, exchange, coin, bid, ask):
         dbInstance = DBConnect.getInstance()

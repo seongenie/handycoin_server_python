@@ -4,8 +4,8 @@ class commonProcess:
     def __init__(self):
         pass
 
-    def updatePrice(self, exchange, coin, first_price, last_price, max_price, min_price):
-        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price, max_price, min_price)
+    def updatePrice(self, exchange, coin, first_price, last_price, max_price, min_price, volume):
+        DBRepository.getInstance().updatePrice(exchange, coin, first_price, last_price, max_price, min_price, volume)
 
     def setJsonObj(self, jObj):
         self.jObj = jObj
@@ -26,7 +26,8 @@ class bithumb(commonProcess):
             last_price = self.jObj['data'][coin]['closing_price']
             max_price = self.jObj['data'][coin]['max_price']
             min_price = self.jObj['data'][coin]['min_price']
-            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
+            volume = self.jObj['data'][coin]['volume_1day']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price, volume)
         return 'success'
 
 class coinone(commonProcess):
@@ -42,7 +43,8 @@ class coinone(commonProcess):
             last_price = self.jObj[coin.lower()]['last']
             max_price = self.jObj[coin.lower()]['high']
             min_price = self.jObj[coin.lower()]['low']
-            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
+            volume = self.jObj[coin.lower()]['volume']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price, volume)
         return 'success'
 
 class poloniex(commonProcess):
@@ -61,5 +63,6 @@ class poloniex(commonProcess):
             first_price = change * float(last_price)
             max_price = self.jObj[ccoin]['high24hr']
             min_price = self.jObj[ccoin]['low24hr']
-            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price)
+            volume = self.jObj[ccoin]['quoteVolume']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price, volume)
         return 'success'
