@@ -45,7 +45,7 @@ class restFulApi:
 
     def request(self, coin):
         if self.exch == "bithumb" :
-            return self.api_query(coin + "?count=10")
+            return self.api_query(coin + "?count=20")
         elif self.exch == "polniex" :
             return self.api_query(coin)
 
@@ -58,17 +58,17 @@ class restFulApi:
             return historyService.poloniex()
 
 
-# with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
-argu = sys.argv[1]
-restFul = restFulApi(argu)
-common = restFul.returnCommon()
-# while True:
-for coin in coin_list[argu]:
-    jObj = restFul.request(coin)
-    common.setJsonObj(jObj)
-    message = common.historyParse(coin)
-    time = str(datetime.now())
-    logger.info(time + ' : ' + message)
-# logger.info(time + ' : ' + message)
-sleep(1)
+with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
+    argu = sys.argv[1]
+    restFul = restFulApi(argu)
+    common = restFul.returnCommon()
+    while True:
+        for coin in coin_list[argu]:
+            jObj = restFul.request(coin)
+            common.setJsonObj(jObj)
+            message = common.historyParse(coin)
+            time = str(datetime.now())
+            logger.info(time + ' : ' + message)
+        logger.info(time + ' : ' + message)
+    sleep(1)
 
