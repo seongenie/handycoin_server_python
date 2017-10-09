@@ -123,8 +123,8 @@ class DBRepository:
             result_dict['data'][i] = history_dict
             i = i + 1
 
-        result_dict['data']['exchange'] = exchange
-        result_dict['data']['coin'] = coin
+        result_dict['exchange'] = exchange
+        result_dict['coin'] = coin
 
         return result_dict
 
