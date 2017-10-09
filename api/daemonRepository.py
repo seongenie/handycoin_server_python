@@ -56,7 +56,6 @@ class DBRepository:
 
     def insertHistory(self, exchange, coin, price, qnty, transaction_date):
         DBConnect.getInstance().executeQuery(
-            """INSERT (exchange, coin, price, qnty, transaction_date, created_date)
-               INTO   transaction_date
+            """INSERT INTO transaction_date(exchange, coin, price, qnty, transaction_date, created_date)
                VALUES (%s, %s, %s, %s, %s, CURTIME())
             """, (exchange, coin, price, qnty, transaction_date))
