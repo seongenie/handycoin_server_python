@@ -27,12 +27,12 @@ class coinone(commonProcess):
         i = 0
         if self.jObj['status'] != "0000" :
             return ('receive ERROR! ' + self.jObj['status'])
-        while (recent_date > self.jObj['data'][i]['transaction_date'] or recent_date == 0):
+        while (recent_date < self.jObj['data'][i]['transaction_date']):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
             self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
-        return 'success'
+        return recent_date
 
 
 class poloniex(commonProcess):
@@ -46,7 +46,7 @@ class poloniex(commonProcess):
         if self.jObj['status'] != "0000" :
             return ('receive ERROR! ' + self.jObj['status'])
 
-        while (recent_date > self.jObj['data'][i]['transaction_date'] or recent_date == 0):
+        while (recent_date < self.jObj['data'][i]['transaction_date'] or recent_date == 0):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
