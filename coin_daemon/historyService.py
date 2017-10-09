@@ -44,7 +44,7 @@ class bithumb(commonProcess):
         #     transaction_date = self.jObj['data'][i]['transaction_date']
         #     self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
         #     i = i + 1
-        return recent_date
+        return 'success'
 
 
 class poloniex(commonProcess):
