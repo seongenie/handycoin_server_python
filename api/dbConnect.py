@@ -31,6 +31,7 @@ class DBConnect:
         conn.close()
 
     def selectQuery(self, query, args):
+        # type: (object, object) -> object
         conn = self.getConnection()
         curs = conn.cursor()
         curs.execute(query, args)

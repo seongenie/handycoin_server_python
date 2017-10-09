@@ -41,3 +41,22 @@ class DBRepository:
                SET price= %s, update_time = CURTIME() 
                WHERE source = %s  and destination = %s
             """, (price, source, destination))
+
+    def selectRecentHistory(self, exchange, coin):
+        result = DBConnect.getInstance().selectQuery(
+            """SELECT transaction_date
+               FROM   transaction_history
+               WHERE  exchange = %s, coin = %s
+               ORDER BY transaction_date desc limit 1
+            """, (exchange, coin))
+        ret = 0
+        for price in result:
+            ret = price[0]
+        return ret
+
+    def insertHistory(self, exchange, coin, price, qnty, transaction_date):
+        DBConnect.getInstance().executeQuery(
+            """INSERT (exchange, coin, price, qnty, transaction_date, created_date)
+               INTO   transaction_date
+               VALUES (%s, %s, %s, %s, %s, CURTIME())
+            """, (exchange, coin))
