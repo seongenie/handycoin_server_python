@@ -17,9 +17,9 @@ class commonProcess:
         pass
 
 
-class coinone(commonProcess):
+class bithumb(commonProcess):
     def __init__(self):
-        self.exchange = 'coinone'
+        self.exchange = 'bithumb'
 
 
     def historyParse(self, coin):
@@ -53,9 +53,9 @@ class poloniex(commonProcess):
             self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
         return recent_date
 
-class bithumb(commonProcess):
+class coinone(commonProcess):
     def __init__(self):
-        self.exchange = 'bithumb'
+        self.exchange = 'coinone'
 
 
     def historyParse(self, coin):
