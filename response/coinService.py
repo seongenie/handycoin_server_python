@@ -5,6 +5,10 @@ class CoinService:
     def __init__(self):
         self.db = DBRepository.getInstance()
 
+    def getTradeHistory(self, exchange, coin):
+        result = self.db.selectTradeHistory(exchange, coin, 20)
+        return result
+
     def getOrderBook(self , exchange, coin):
         result = self.db.selectOrderBook(exchange, coin)
         return result

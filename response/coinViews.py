@@ -41,3 +41,15 @@ def posscoin(request):
     else:
         return HttpResponse("ERROR")
 
+
+@csrf_exempt
+def tradeHistory(request) :
+    if request.method == "GET":
+        history = coinService.getTradeHistory(request.GET['exchange'], request.GET['coin'])
+        return JsonResponse(history)
+        # 로직 구현
+        #
+        #
+        # return JsonResponse({          })
+    else:
+        return HttpResponse("ERROR")

@@ -7,4 +7,5 @@ urlpatterns =[
     url(r'^posscoin$' , coinViews.posscoin , name="posscoin"),
     url(r'^ticker$' , coinViews.ticker , name="ticker"),
     url(r'^orderbook$', coinViews.orderbook , name="orderbook"),
+    url(r'^tradeHistory', coinViews.tradeHistory , name="tradeHistory"),
 ]
