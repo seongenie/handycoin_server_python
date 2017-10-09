@@ -27,12 +27,20 @@ class bithumb(commonProcess):
         i = 0
         if self.jObj['status'] != "0000" :
             return ('receive ERROR! ' + self.jObj['status'])
-        while (recent_date < self.jObj['data'][i]['transaction_date']):
-            price = self.jObj['data'][i]['price']
-            qnty = self.jObj['data'][i]['units_traded']
-            transaction_date = self.jObj['data'][i]['transaction_date']
-            self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
-            i = i + 1
+        for data in self.jObj['data'] :
+            if recent_date < data['transaction_date'] :
+                price = self.jObj['data'][i]['price']
+                qnty = self.jObj['data'][i]['units_traded']
+                transaction_date = self.jObj['data'][i]['transaction_date']
+                self.insertHistory(self.exchange, coin, price, qnty, transaction_date)
+            else :
+                break
+        # while (recent_date < self.jObj['data'][i]['transaction_date']):
+        #     price = self.jObj['data'][i]['price']
+        #     qnty = self.jObj['data'][i]['units_traded']
+        #     transaction_date = self.jObj['data'][i]['transaction_date']
+        #     self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
+        #     i = i + 1
         return recent_date
 
 
