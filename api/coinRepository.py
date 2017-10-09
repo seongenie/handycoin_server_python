@@ -115,9 +115,11 @@ class DBRepository:
             , (exchange, coin, count))
 
         for history in result :
-            result_dict['data']['price'] = history[0]
-            result_dict['data']['qnty'] = history[1]
-            result_dict['data']['transaction_date'] = history[2]
+            history_dict = {}
+            history_dict['price'] = history[0]
+            history_dict['qnty'] = history[1]
+            history_dict['transaction_date'] = history[2]
+            result_dict['data'].add(history_dict)
 
         result_dict['data']['exchange'] = exchange
         result_dict['data']['coin'] = coin
