@@ -59,4 +59,4 @@ class DBRepository:
             """INSERT (exchange, coin, price, qnty, transaction_date, created_date)
                INTO   transaction_date
                VALUES (%s, %s, %s, %s, %s, CURTIME())
-            """, (exchange, coin))
+            """, (exchange, coin, price, qnty, transaction_date))
