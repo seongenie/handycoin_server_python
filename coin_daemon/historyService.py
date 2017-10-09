@@ -46,7 +46,7 @@ class poloniex(commonProcess):
         if self.jObj['status'] != "0000" :
             return ('receive ERROR! ' + self.jObj['status'])
 
-        while (recent_date > self.jObj['data'][i]['transaction_date'] ):
+        while (recent_date > self.jObj['data'][i]['transaction_date'] or recent_date == 0):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
