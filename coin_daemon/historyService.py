@@ -36,9 +36,9 @@ class bithumb(commonProcess):
         for data in self.jObj['data'] :
             convert_datetime = datetime.strptime(self.jObj['data'][i]['transaction_date'], "%Y-%m-%d %H:%M:%S")
             if recent_date < convert_datetime :
-                price = self.jObj['data'][i]['price']
-                qnty = self.jObj['data'][i]['units_traded']
-                transaction_date = self.jObj['data'][i]['transaction_date']
+                price = data['price']
+                qnty = data['units_traded']
+                transaction_date = data['transaction_date']
                 self.insertHistory(self.exchange, coin, price, qnty, transaction_date)
             else :
                 break
