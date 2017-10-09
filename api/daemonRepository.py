@@ -46,8 +46,8 @@ class DBRepository:
         result = DBConnect.getInstance().selectQuery(
             """SELECT transaction_date
                FROM   transaction_history
-               WHERE  exchange = %s, coin = %s
-               ORDER BY transaction_date desc limit 1
+               WHERE  exchange = %s AND coin = %s
+               ORDER BY transaction_date DESC limit 1
             """, (exchange, coin))
         ret = 0
         for price in result:
