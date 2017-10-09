@@ -26,8 +26,8 @@ class coinone(commonProcess):
         recent_date = self.selectHistory(self.exchange, coin)
         i = 0
         if self.jObj['status'] != "0000" :
-            return
-        while (recent_date > self.jObj['data'][i]['transaction_date']):
+            return ('receive ERROR! ' + self.jObj['status'])
+        while (recent_date > self.jObj['data'][i]['transaction_date'] or recent_date == 0):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
