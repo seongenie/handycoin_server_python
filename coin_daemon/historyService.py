@@ -25,6 +25,10 @@ class bithumb(commonProcess):
 
     def historyParse(self, coin):
         recent_date = self.selectHistory(self.exchange, coin)
+
+        if recent_date == 0 :
+            recent_date = datetime.strptime('1900-01-01 00:00:00', "%Y-%m-%d %H:%M:%S")
+
         i = 0
         if self.jObj['status'] != "0000" :
             return ('receive ERROR! ' + self.jObj['status'])
