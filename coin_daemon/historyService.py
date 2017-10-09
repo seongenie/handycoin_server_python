@@ -31,7 +31,7 @@ class coinone(commonProcess):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
-            self.insertHistory(self.exchange, coin, price, transaction_date )
+            self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
         return 'success'
 
 
@@ -44,18 +44,14 @@ class poloniex(commonProcess):
         recent_date = self.selectHistory(self.exchange, coin)
         i = 0
         if self.jObj['status'] != "0000" :
-            print ('receive ERROR! ' + self.jObj['status'])
-            return
-
-        print recent_date
-
+            return ('receive ERROR! ' + self.jObj['status'])
 
         while (recent_date > self.jObj['data'][i]['transaction_date'] ):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
-            self.insertHistory(self.exchange, coin, price, transaction_date )
-        return 'success'
+            self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
+        return recent_date
 
 class bithumb(commonProcess):
     def __init__(self):
@@ -71,5 +67,5 @@ class bithumb(commonProcess):
             price = self.jObj['data'][i]['price']
             qnty = self.jObj['data'][i]['units_traded']
             transaction_date = self.jObj['data'][i]['transaction_date']
-            self.insertHistory(self.exchange, coin, price, transaction_date )
+            self.insertHistory(self.exchange, coin, price, qnty, transaction_date )
         return 'success'

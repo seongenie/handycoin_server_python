@@ -66,8 +66,8 @@ common = restFul.returnCommon()
 for coin in coin_list[argu]:
     jObj = restFul.request(coin)
     common.setJsonObj(jObj)
-    common.historyParse(coin)
-message = "RECEIVE SUCCESS"
+    message = common.historyParse(coin)
+    logger.info(time + ' : ' + message)
 time = str(datetime.now())
 logger.info(time + ' : ' + message)
 sleep(1)
