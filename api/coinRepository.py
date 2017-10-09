@@ -111,7 +111,7 @@ class DBRepository:
         result_dict = {'data': {}}
 
         result = self.localSource.selectQuery(
-            "select price, qnty, transaction_date, idx from transaction_history where exchange=%s and coin=%s order by transaction_date desc, created_date desc limit %s"
+            "select price, qnty, transaction_date, idx from transaction_history where exchange=%s and coin=%s order by idx desc limit %s"
             , (exchange, coin, count))
 
         for history in result :

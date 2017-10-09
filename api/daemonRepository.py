@@ -47,7 +47,7 @@ class DBRepository:
             """SELECT transaction_date
                FROM   transaction_history
                WHERE  exchange = %s AND coin = %s
-               ORDER BY transaction_date DESC limit 1
+               ORDER BY idx DESC limit 1
             """, (exchange, coin))
         ret = 0
         for price in result:
