@@ -119,7 +119,7 @@ class DBRepository:
             history_dict['price'] = history[0]
             history_dict['qnty'] = history[1]
             history_dict['transaction_date'] = history[2]
-            result_dict['data'][history[3]] = history[3]
+            result_dict['data'][history[3]] = history_dict
 
         result_dict['exchange'] = exchange
         result_dict['coin'] = coin
