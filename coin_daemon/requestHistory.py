@@ -67,8 +67,8 @@ for coin in coin_list[argu]:
     jObj = restFul.request(coin)
     common.setJsonObj(jObj)
     message = common.historyParse(coin)
+    time = str(datetime.now())
     logger.info(time + ' : ' + message)
-time = str(datetime.now())
-logger.info(time + ' : ' + message)
+# logger.info(time + ' : ' + message)
 sleep(1)
 
