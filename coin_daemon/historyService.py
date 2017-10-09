@@ -1,4 +1,5 @@
 from api.daemonRepository import DBRepository
+from datetime import datetime
 
 class commonProcess:
     def __init__(self):
@@ -27,8 +28,10 @@ class bithumb(commonProcess):
         i = 0
         if self.jObj['status'] != "0000" :
             return ('receive ERROR! ' + self.jObj['status'])
+
         for data in self.jObj['data'] :
-            if recent_date < data['transaction_date'] :
+            convert_datetime = datetime.strptime(self.jObj['data'][i]['transaction_date'], "%Y-%m-%d %H:%M:%S").date()
+            if recent_date < convert_datetime :
                 price = self.jObj['data'][i]['price']
                 qnty = self.jObj['data'][i]['units_traded']
                 transaction_date = self.jObj['data'][i]['transaction_date']
