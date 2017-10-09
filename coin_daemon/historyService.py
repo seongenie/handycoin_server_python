@@ -30,7 +30,7 @@ class bithumb(commonProcess):
             return ('receive ERROR! ' + self.jObj['status'])
 
         for data in self.jObj['data'] :
-            convert_datetime = datetime.strptime(self.jObj['data'][i]['transaction_date'], "%Y-%m-%d %H:%M:%S").date()
+            convert_datetime = datetime.strptime(self.jObj['data'][i]['transaction_date'], "%Y-%m-%d %H:%M:%S")
             if recent_date < convert_datetime :
                 price = self.jObj['data'][i]['price']
                 qnty = self.jObj['data'][i]['units_traded']
