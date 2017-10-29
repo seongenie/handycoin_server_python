@@ -15,7 +15,7 @@ class commonProcess:
 
 class bithumb(commonProcess):
     def __init__(self):
-        self.coins = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH'];
+        self.coins = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH', 'QTUM'];
         self.exchange = 'bithumb'
 
     def jsonParse(self):
