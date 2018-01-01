@@ -44,7 +44,7 @@ class restFulApi:
         self.exch = command
 
     def api_query(self, coin, req={}):
-        ret = urllib2.urlopen(urllib2.Request(exchange_url[self.exch] + coin, header=hdr))
+        ret = urllib2.urlopen(urllib2.Request(exchange_url[self.exch] + coin, headers=hdr))
         self.jObj = json.loads(ret.read())
         return self.jObj
 
