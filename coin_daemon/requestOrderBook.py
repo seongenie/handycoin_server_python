@@ -23,6 +23,8 @@ logger = logging.getLogger()
 logger.addHandler(file_logger)
 logger.setLevel(logging.INFO)
 
+hdr = {'User-Agent': 'Mozilla/5.0', 'referer' : 'http://m.naver.com'}
+
 exchange_url = {}
 exchange_url['poloniex'] = 'https://poloniex.com/public?command=returnOrderBook&currencyPair=' #USDT_ZEC&depth=5'
 exchange_url['coinone'] = 'https://api.coinone.co.kr/orderbook?currency=' #BTC
@@ -42,7 +44,7 @@ class restFulApi:
         self.exch = command
 
     def api_query(self, coin, req={}):
-        ret = urllib2.urlopen(urllib2.Request(exchange_url[self.exch] + coin))
+        ret = urllib2.urlopen(urllib2.Request(exchange_url[self.exch] + coin, header=hdr))
         self.jObj = json.loads(ret.read())
         return self.jObj
 
