@@ -67,16 +67,16 @@ class restFulApi:
             return orderBookService.coinnest()
 
 
-# with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
-argu = sys.argv[1]
-restFul = restFulApi(argu)
-common = restFul.returnCommon()
-    # while True:
-for coin in coin_list[argu]:
-    jObj = restFul.request(coin)
-    common.setJsonObj(jObj)
-    common.odBookParse(coin)
-message = "RECEIVE SUCCESS"
-time = str(datetime.now())
-logger.info(time + ' : ' + message)
-sleep(1)
+with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
+    argu = sys.argv[1]
+    restFul = restFulApi(argu)
+    common = restFul.returnCommon()
+    while True:
+        for coin in coin_list[argu]:
+            jObj = restFul.request(coin)
+            common.setJsonObj(jObj)
+            common.odBookParse(coin)
+        # message = "RECEIVE SUCCESS"
+        # time = str(datetime.now())
+        # logger.info(time + ' : ' + message)
+        sleep(1)
