@@ -101,3 +101,54 @@ class poloniex(commonProcess):
         self.updateOrderBook(self.exchange, coin, bid, ask)
 
         return 'success'
+
+class coinnest(commonProcess):
+    def __init__(self):
+        self.exchange = 'coinnest'
+
+    def odBookParse(self, coin):
+        ask = {}
+        ask['tick'] = {}
+        ask['qnty'] = {}
+
+        bid = {}
+        bid['tick'] = {}
+        bid['qnty'] = {}
+        for i in range(0, 5):
+            ask['tick'][i] = {}
+            ask['qnty'][i] = {}
+            bid['tick'][i] = {}
+            bid['qnty'][i] = {}
+
+            ask['tick'][i] = self.jObj['asks'][i][0]
+            ask['qnty'][i] = self.jObj['asks'][i][1]
+            bid['tick'][i] = self.jObj['bids'][i][0]
+            bid['qnty'][i] = self.jObj['bids'][i][1]
+        self.updateOrderBook(self.exchange, coin, bid, ask)
+        return 'success'
+
+class korbit(commonProcess):
+    def __init__(self):
+        self.exchange = 'korbit'
+
+    def odBookParse(self, coin):
+        ask = {}
+        ask['tick'] = {}
+        ask['qnty'] = {}
+
+        bid = {}
+        bid['tick'] = {}
+        bid['qnty'] = {}
+        for i in range(0, 5):
+            ask['tick'][i] = {}
+            ask['qnty'][i] = {}
+            bid['tick'][i] = {}
+            bid['qnty'][i] = {}
+
+            ask['tick'][i] = self.jObj['asks'][i][0]
+            ask['qnty'][i] = self.jObj['asks'][i][1]
+            bid['tick'][i] = self.jObj['bids'][i][0]
+            bid['qnty'][i] = self.jObj['bids'][i][1]
+        self.updateOrderBook(self.exchange, coin, bid, ask)
+
+        return 'success'

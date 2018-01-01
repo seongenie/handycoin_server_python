@@ -27,12 +27,15 @@ exchange_url = {}
 exchange_url['poloniex'] = 'https://poloniex.com/public?command=returnOrderBook&currencyPair=' #USDT_ZEC&depth=5'
 exchange_url['coinone'] = 'https://api.coinone.co.kr/orderbook?currency=' #BTC
 exchange_url['bithumb'] = 'https://api.bithumb.com/public/orderbook/' #BTC
+exchange_url['coinnest'] = 'https://api.coinnest.co.kr/api/pub/depth?coin='
+exchange_url['korbit'] = 'https://api.korbit.co.kr/v1/ticker?currency_pair='
 
 coin_list = {}
 coin_list['poloniex'] = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP', 'BCH']
 coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH', 'QTUM'];
 coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
-
+coin_list['coinnest'] = ['TRON']
+coin_list['korbit'] = ['BTC', 'BCH', 'XRP', 'ETH', 'ETC', 'LTC']
 
 class restFulApi:
     def __init__(self, command):
@@ -46,6 +49,8 @@ class restFulApi:
     def request(self, coin):
         if self.exch == "poloniex" :
             return self.api_query("USDT_" + coin + "&depth=5")
+        elif self.exch == "coinnest" :
+            return self.api_query(coin.lower())
         else :
             return self.api_query(coin)
 
@@ -56,6 +61,8 @@ class restFulApi:
             return orderBookService.coinone()
         if self.exch == "poloniex":
             return orderBookService.poloniex()
+        if self.exch == "coinnest":
+            return orderBookService.coinnest()
 
 
 with daemon.DaemonContext(files_preserve=[file_logger.stream.fileno()]):
