@@ -26,6 +26,7 @@ logger.setLevel(logging.INFO)
 exchange_url = {}
 
 exchange_url['coinnest'] = 'https://api.coinnest.co.kr/api/pub/ticker?coin='
+hdr = {'User-Agent': 'Mozilla/5.0', 'referer' : 'http://m.naver.com'}
 
 coin_list = {}
 coin_list['coinnest'] = ['TRON']
@@ -35,7 +36,7 @@ class restFulApi:
         self.exch = command
 
     def api_query(self, coin, req={}):
-        ret = urllib2.urlopen(urllib2.Request(exchange_url[self.exch] + coin))
+        ret = urllib2.urlopen(urllib2.Request(exchange_url[self.exch] + coin, headers=hdr))
         self.jObj = json.loads(ret.read())
         return self.jObj
 
