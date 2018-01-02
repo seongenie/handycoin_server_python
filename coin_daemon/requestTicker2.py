@@ -29,7 +29,7 @@ exchange_url['coinnest'] = 'https://api.coinnest.co.kr/api/pub/ticker?coin='
 hdr = {'User-Agent': 'Mozilla/5.0', 'referer' : 'http://m.naver.com'}
 
 coin_list = {}
-coin_list['coinnest'] = ['TRON']
+coin_list['coinnest'] = ['TRON', 'INC', 'TSL']
 
 class restFulApi:
     def __init__(self, command):
