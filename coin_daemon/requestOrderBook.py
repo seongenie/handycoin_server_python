@@ -35,7 +35,7 @@ exchange_url['korbit'] = 'https://api.korbit.co.kr/v1/ticker?currency_pair='
 coin_list = {}
 coin_list['poloniex'] = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP', 'BCH']
 coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH', 'QTUM'];
-coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
+coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM', 'IOTA']
 coin_list['coinnest'] = ['TRON', 'TSL', 'INK']
 coin_list['korbit'] = ['BTC', 'BCH', 'XRP', 'ETH', 'ETC', 'LTC']
 

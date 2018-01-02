@@ -32,7 +32,7 @@ class bithumb(commonProcess):
 
 class coinone(commonProcess):
     def __init__(self):
-        self.coins = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM']
+        self.coins = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM', 'IOTA']
         self.exchange = 'coinone'
 
     def jsonParse(self):
@@ -51,6 +51,26 @@ class poloniex(commonProcess):
     def __init__(self):
         self.coins = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP', 'BCH']
         self.exchange = 'poloniex'
+
+    def jsonParse(self):
+        ret_arr = {}
+        ret_arr['exchange'] = self.exchange
+        for coin in self.coins:
+            ccoin = "USDT_" + coin
+            change = float(self.jObj[ccoin]['percentChange'])
+            change = 1 / (1 + change)
+            last_price = self.jObj[ccoin]['last']
+            first_price = change * float(last_price)
+            max_price = self.jObj[ccoin]['high24hr']
+            min_price = self.jObj[ccoin]['low24hr']
+            volume = self.jObj[ccoin]['quoteVolume']
+            self.updatePrice(self.exchange, coin, first_price, last_price, max_price, min_price, volume)
+        return 'success'
+
+class korbit(commonProcess):
+    def __init__(self):
+        self.coins = ['BTC', 'BCH', 'XRP', 'ETH', 'ETC', 'LTC']
+        self.exchange = 'korbit'
 
     def jsonParse(self):
         ret_arr = {}
