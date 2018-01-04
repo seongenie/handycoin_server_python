@@ -36,7 +36,7 @@ coin_list = {}
 coin_list['poloniex'] = ['BTC', 'ETH', 'LTC', 'XRP', 'ETC', 'ZEC', 'NXT', 'STR', 'DASH' ,'XMR' ,'REP', 'BCH']
 coin_list['bithumb'] = ['BTC', 'ETH', 'DASH', 'LTC', 'ETC', 'XRP', 'XMR', 'ZEC', 'BCH', 'QTUM'];
 coin_list['coinone'] = ['BTC', 'ETH', 'ETC', 'XRP', 'BCH', 'QTUM', 'IOTA']
-coin_list['coinnest'] = ['TRON', 'INK', 'TSL']
+coin_list['coinnest'] = ['TRON', 'INK', 'TSL', 'ADA']
 coin_list['korbit'] = ['BTC', 'BCH', 'XRP', 'ETH', 'ETC', 'LTC']
 
 class restFulApi:
